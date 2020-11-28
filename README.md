@@ -1,2 +1,5 @@
-# okm_response_doc_parser
-OpenKM document file name parser from OpenKM document response API
+# Document Response API parser for OpenK
+OpenKM document file name parser from OpenKM document response API.
+
+## license
+This project licensed under MIT
