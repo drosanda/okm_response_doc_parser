@@ -13,15 +13,8 @@
       <button type="submit" style="background-color: red; color: black; font-size: 18px; padding: 1em; width: 100%;">Proses!!!</button>
     </div>
   </form>
-  <table id="tbl" class="">
-    <thead>
-      <tr>
-        <th>Filename</th>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
+  <br>
+  <textarea id="taresult" rows="20" style="width: 100%"></textarea>
   <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"
   integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -61,27 +54,31 @@
             return false;
           }
 
-          $('#tbl tbody').empty();
+          $('#taresult').empty();
           var i=0;
           var s = 0;
+          var h = '';
           $.each(x, function(k2,v2){
             if(typeof v2 !== 'object') return;
             $.each(v2, function (k,v){
               i++;
-              if(!v.includes('java.util') && !v.includes('com.openkm') && v[0] != '/' && pathToFile(v).extension.length > 0){
-                var h = '<tr>';
-                  h += '<td>'+v+'</td>';
-                  h += '</tr>';
-                  $('#tbl tbody').append(h);
-                }
-              });
+              if(
+                !v.includes('java.util') &&
+                !v.includes('com.openkm') &&
+                !v.includes('.DS_Store') &&
+                !v.includes('/') &&
+                //!v.includes('._') &&
+                v[0] != '/' &&
+                pathToFile(v).extension.length > 0
+              ){
+                if(s!=0) h += ''+v+''+"\r\n";
+                s++;
+              }
             });
           });
-
-
-        })
-
-      </script>
-
-    </body>
-    </html>
+          if(s!=0) $('#taresult').append(h);
+        });
+      });
+    </script>
+  </body>
+</html>
